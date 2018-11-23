@@ -1,0 +1,25 @@
+{
+  "name": "noip-dns-update-client",
+  "version": "1.0.0",
+  "description": "noip.com DNS Update Client",
+  "scripts": {
+    "transpile": "tsc",
+    "start": "node ./dist/app.js",
+    "postinstall": "npm run transpile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wchang28/noip-dns-update-client.git"
+  },
+  "author": "Wen Chang",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^10.12.10",
+    "my-ip-ipify": "https://github.com/wchang28/my-ip-ipify.git",
+    "noip-dns-update": "https://github.com/wchang28/noip-dns-update.git",
+    "periodic-polling": "https://github.com/wchang28/periodic-polling.git"
+  },
+  "devDependencies": {
+    "typescript": "^3.1.6"
+  }
+}

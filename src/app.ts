@@ -2,10 +2,12 @@ import * as pp from "periodic-polling";
 import {get as getMyIP} from "my-ip-ipify";
 import {DNSUpdator} from "noip-dns-update";
 import {get as getIPWatcher} from "./ip-watcher";
+import * as request from "superagent";
 
 let noipUsername = process.env.NOIP_USERNAME;
 let noipPassword = process.env.NOIP_PASSWORD;
 let hostname = process.env.HOSTNAME;
+let ipChangedNotifyWebhookUrl = process.env.IP_CHANGED_NOTIFY_WEBHOOK_URL;
 
 if (!noipUsername) {
     console.error(`[${new Date().toISOString()}]: env.NOIP_USERNAME is not set`);
@@ -41,14 +43,20 @@ let updateDNS = async (newIP: string) => {
     }
 };
 
-let notifyIPChanged = async (oldIP: string, newIP: string, dnsUpdateResult: string) => {
-    // TODO:
+let notifyIPChanged = async (oldIP: string, newIP: string) => {
+    try {
+        if (ipChangedNotifyWebhookUrl) {
+            let res = await request.get(ipChangedNotifyWebhookUrl).query({oldIP, newIP}).timeout(10000);
+        }
+    } catch(e) {
+        console.error(`[${new Date().toISOString()}]: error notifying ip changed webhook ${ipChangedNotifyWebhookUrl}: ${JSON.stringify(e)}`);
+    }
 };
 
 ipWatcher.on("ip-changed", async (oldIP: string, newIP: string) => {
     console.log(`[${new Date().toISOString()}]: <<IP-CHANGED>>: ${oldIP} ===> ${newIP}`);
     let dnsUpdateResult = await updateDNS(newIP);
-    await notifyIPChanged(oldIP, newIP, dnsUpdateResult);
+    await notifyIPChanged(oldIP, newIP);
 });
 
 pp.PeriodicPolling.get(() => getMyIP(), 60)

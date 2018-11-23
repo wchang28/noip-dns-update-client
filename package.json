@@ -15,9 +15,11 @@
   "license": "MIT",
   "dependencies": {
     "@types/node": "^10.12.10",
+    "@types/superagent": "^3.8.4",
     "my-ip-ipify": "https://github.com/wchang28/my-ip-ipify.git",
     "noip-dns-update": "https://github.com/wchang28/noip-dns-update.git",
-    "periodic-polling": "https://github.com/wchang28/periodic-polling.git"
+    "periodic-polling": "https://github.com/wchang28/periodic-polling.git",
+    "superagent": "^4.0.0"
   },
   "devDependencies": {
     "typescript": "^3.1.6"

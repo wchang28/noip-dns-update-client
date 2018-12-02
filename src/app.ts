@@ -27,6 +27,7 @@ if (!hostname) {
 console.log(`[${new Date().toISOString()}]: noipUsername=${noipUsername}`);
 console.log(`[${new Date().toISOString()}]: noipPassword=${noipPassword}`);
 console.log(`[${new Date().toISOString()}]: hostname=${hostname}`);
+if (ipChangedNotifyWebhookUrl) console.log(`[${new Date().toISOString()}]: ipChangedNotifyWebhookUrl=${ipChangedNotifyWebhookUrl}`);
 
 let dnsUpdator = new DNSUpdator(noipUsername, noipPassword);
 let ipWatcher = getIPWatcher();

@@ -9,7 +9,7 @@ class IPWatcherClass extends events.EventEmitter {
     private _ip: string;
     constructor() {
         super();
-        this._ip = null;
+        this._ip = "(none)";
     }
     get ip(): string {return this._ip;}
     set ip(value: string) {
